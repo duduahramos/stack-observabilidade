@@ -2,7 +2,16 @@ receivers:
   otlp:
     protocols:
       grpc:
+        endpoint: 0.0.0.0:4317
       http:
+        endpoint: 0.0.0.0:4318
+        include_metadata: true
+        cors:
+          allowed_origins:
+            - http://localhost:3000
+          allowed_headers:
+            - Example-Header
+          max_age: 7200
 
 processors:
   batch:
@@ -40,12 +49,12 @@ exporters:
 service:
   pipelines:      
     logs:
-      receivers: [http, otlp]
+      receivers: [otlp]
       processors: [batch]
       exporters: [loki]
 
     traces:
-      receivers: [http, otlp]
+      receivers: [otlp]
       processors: [batch]
       # exporters: [otlp/jaeger]
       exporters: [logging, otlp, otlp/jaeger]
@@ -53,6 +62,6 @@ service:
       # exporters: [otlp]
 
     metrics:
-      receivers: [http, otlp]
+      receivers: [otlp]
       processors: [batch]
       exporters: [prometheus]
