@@ -8,7 +8,7 @@ receivers:
         include_metadata: true
         cors:
           allowed_origins:
-            - http://localhost:3000
+            - "*"
           allowed_headers:
             - Example-Header
           max_age: 7200
