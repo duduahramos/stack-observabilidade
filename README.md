@@ -1,6 +1,6 @@
 # Stack de Observabilidade
 
-Este repositório contém uma configuração de stack de observabilidade utilizando várias ferramentas populares para monitoramento e rastreamento. A stack inclui Jaeger, Tempo, Loki, Prometheus, Grafana, e um proxy reverso configurado com NGINX e CORS, para permitir que o OpenTelemetry (OTEL) Collector receba dados de telemetria de toda a aplicação, incluindo o lado do cliente (navegador), via HTTP.
+Este repositório contém uma configuração de stack de observabilidade utilizando várias ferramentas populares para monitoramento e rastreamento. A stack inclui Jaeger, Tempo, Loki, Prometheus, Grafana, e um proxy reverso configurado com NGINX e CORS, para permitir que o OpenTelemetry (OTEL) Collector receba dados de telemetria de toda a aplicação, incluindo o client side (browser), via HTTP.
 
 ## Tecnologias Utilizadas
 
@@ -9,8 +9,7 @@ Este repositório contém uma configuração de stack de observabilidade utiliza
 - **Loki**: Sistema de logs agregados que facilita a análise de logs, integrado com o Grafana.
 - **Prometheus**: Sistema de monitoramento e alertas, coletando métricas e dados de performance de aplicações.
 - **Grafana**: Plataforma de análise e visualização de métricas, permitindo criar dashboards dinâmicos para os dados coletados.
-- **NGINX**: Proxy reverso configurado para gerenciar o tráfego e a configuração de CORS, permitindo que o OTEL Collector receba dados de telemetria de toda a aplicação, incluindo os dados do cliente (navegador).
-- **CORS**: Configuração de compartilhamento de recursos entre origens, permitindo que o frontend (navegador) envie dados para o servidor de coleta de telemetria.
+- **NGINX**: Proxy reverso configurado para gerenciar o tráfego e a configuração de CORS, permitindo que o OTEL Collector receba dados de telemetria de toda a aplicação, incluindo os dados do cliente (browser).
 
 ## Funcionalidade
 
