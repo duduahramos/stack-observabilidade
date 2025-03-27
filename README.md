@@ -13,7 +13,9 @@ Este repositório contém uma configuração de stack de observabilidade utiliza
 
 ## Funcionalidade
 
-A stack foi configurada para permitir a coleta de dados de telemetria da aplicação inteira, tanto do backend quanto do frontend (navegador), utilizando o OpenTelemetry Collector. O NGINX serve como um proxy reverso que lida com a configuração de CORS, permitindo que os dados de telemetria sejam recebidos via HTTP e enviados para as ferramentas de observabilidade como Jaeger, Tempo, Loki, Prometheus e Grafana.
+A stack de ```OpenTelemetry``` configurada pode receber dados na porta ```4317(grpc)``` e na porta ```4318(http)```, sendo o protocolo grpc mais perfomático.
+Aplicações frontend como ```angular e react```, que possuem ```server side e client side```, podem utilizar ambas as portas.
+As ```requisições do browser``` devem ser feitas para a porta ```4318```, pois nela está configurada o ```proxy reverso``` com ```nginx```, que internamete transfere o fluxo para o container ```collector```
 
 ## Como Usar
 
