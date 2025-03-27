@@ -13,16 +13,6 @@ volumes:
 # https://opentelemetry.io/docs/languages/js/exporters/#configure-cors-headers
 # https://medium.com/@eliasvitor.dev/nginx-com-docker-a-combina%C3%A7%C3%A3o-perfeita-para-o-gerenciamento-de-servidores-web-f585b40a9e22
 services:
-  nginx:
-    container_name: nginx
-    image: nginx:1.27.4-alpine-slim
-    ports:
-      - "4318:1234" # Endpoint where application will be pushing telemetry data, e.g. logs, traces, and metrics.
-    volumes:
-      - ./infra/nginx.conf:/etc/nginx/nginx.conf 
-    networks:
-      - telemetry_net
-
   grafana:
     container_name: grafana
     image: grafana/grafana:latest
@@ -39,7 +29,6 @@ services:
     networks:
       - telemetry_net
     depends_on:
-      - nginx
       - collector
       - jaeger
       - tempo
@@ -53,11 +42,10 @@ services:
     ports:
       - "8889:8889" # Prometheus metrics exporter (scrape endpoint)
       - "4317:4317" # Endpoint where application will be pushing telemetry data, e.g. logs, traces, and metrics.
-      # - "4318:4318" # Endpoint where application will be pushing telemetry data, e.g. logs, traces, and metrics.
+      - "4318:4318" # Endpoint where application will be pushing telemetry data, e.g. logs, traces, and metrics.
     volumes:
       - ./infra/otel-collector-config.yaml:/etc/collector.yaml
     depends_on:
-      - nginx
       - jaeger
       - tempo
       - loki
@@ -71,8 +59,6 @@ services:
     ports:
       - "16686:16686"  # UI
     restart: unless-stopped
-    depends_on:
-      - nginx
     networks:
       - telemetry_net
 
@@ -84,8 +70,6 @@ services:
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
       - ./infra/tempo.yaml:/etc/tempo.yaml
-    depends_on:
-      - nginx
     networks:
       - telemetry_net
 
@@ -126,7 +110,6 @@ services:
     volumes:
       - ./infra/prometheus-config.yaml:/etc/prometheus/prometheus.yaml
     depends_on:
-      - nginx
       - collector
       - loki
     networks:

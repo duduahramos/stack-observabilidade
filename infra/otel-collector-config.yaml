@@ -5,13 +5,12 @@ receivers:
         endpoint: 0.0.0.0:4317
       http:
         endpoint: 0.0.0.0:4318
-        include_metadata: true
         cors:
           allowed_origins:
-            - "*"
-          allowed_headers:
-            - Example-Header
-          max_age: 7200
+            - http://localhost:3000
+            - http://127.0.0.1:3000
+            - http://localhost
+            - http://127.0.0.1
 
 processors:
   batch:
@@ -56,10 +55,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      # exporters: [otlp/jaeger]
       exporters: [logging, otlp, otlp/jaeger]
-      # exporters: [logging, otlp]
-      # exporters: [otlp]
 
     metrics:
       receivers: [otlp]
