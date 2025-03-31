@@ -41,8 +41,8 @@ services:
     command: [ "--config=/etc/collector.yaml" ]
     ports:
       - "8889:8889" # Prometheus metrics exporter (scrape endpoint)
-      - "4317:4317" # Endpoint where application will be pushing telemetry data, e.g. logs, traces, and metrics.
-      - "4318:4318" # Endpoint where application will be pushing telemetry data, e.g. logs, traces, and metrics.
+      - "4317:4317" # GRPC - Endpoint where application will be pushing telemetry data, e.g. logs, traces, and metrics.
+      - "4318:4318" # HTTP - Endpoint where application will be pushing telemetry data, e.g. logs, traces, and metrics.
     volumes:
       - ./infra/otel-collector-config.yaml:/etc/collector.yaml
     depends_on:
