@@ -18,8 +18,8 @@ processors:
     timeout: 5s
 
 exporters:
-  logging:
-    loglevel: info
+  # logging:
+  #   loglevel: info
 
   otlp/jaeger:
     endpoint: jaeger:4317
@@ -55,7 +55,8 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, otlp, otlp/jaeger]
+      # exporters: [logging, otlp, otlp/jaeger]
+      exporters: [otlp, otlp/jaeger]
 
     metrics:
       receivers: [otlp]
